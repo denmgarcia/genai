@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: genai
+  labels:
+    app: genai
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: genai
+  template:
+    metadata:
+      labels:
+        app: genai
+    spec:
+      containers:
+      - name: genai
+        image: cyborden/genai:0.0.1
+        ports:
+        - containerPort: 3001

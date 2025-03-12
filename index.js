@@ -8,6 +8,7 @@ const cors = require("cors");
 app.use(cors({ origin: "http://localhost:3000" }));
 app.use(express.json({limit: "10mb", extended: true}))
 app.use(express.urlencoded({limit: "10mb", extended: true, parameterLimit: 50000}))
+app.disable('x-powered-by');
 
 app.post('/ai', async(req, res) => {
 
