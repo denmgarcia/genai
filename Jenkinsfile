@@ -10,7 +10,7 @@ pipeline {
         BUILD_TAG = "v1.0.${BUILD_NUMBER}"
     }
 
-    stages {å
+    stages {
         stage("Project Building") {
             steps {
                 git branch: 'main', url: 'https://github.com/denmgarcia/genai'
