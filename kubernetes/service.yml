@@ -7,6 +7,6 @@ spec:
     app: genai
   ports:
     - protocol: TCP
-      port: 3001  # External port
-      targetPort: 3001  # Port your container is listening on
-  type: NodePort  # Change to "NodePort" if not using a cloud provider
+      port: 3001
+      targetPort: 3001
+  type: NodePort
