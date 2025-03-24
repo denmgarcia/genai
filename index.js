@@ -57,7 +57,7 @@ app.post('/ai', async(req, res) => {
     res.send(text)
 })
 
-app.post('/sampler', async(req, res) => {
+app.get('/sampler', async(req, res) => {
 
     res.send({
         "welcome": "I was from jenkins!"
