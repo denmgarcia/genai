@@ -57,6 +57,13 @@ app.post('/ai', async(req, res) => {
     res.send(text)
 })
 
+app.post('/sampler', async(req, res) => {
+
+    res.send({
+        "welcome": "I was from jenkins!"
+    })
+})
+
 app.listen(port, () => {
   console.log(`Generative AI app listening on port ${port}`)
 })
