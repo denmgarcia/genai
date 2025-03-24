@@ -7,19 +7,10 @@ pipeline {
     
     environment {
         DOCKER_IMAGE = "cyborden/genai"
+        BUILD_TAG = "v1.0.${BUILD_NUMBER}"
     }
 
-    stages {
-        
-        stage("Generate Version") {
-            steps {
-                script {
-                    env.RELEASE_VERSION = sh(script: "/usr/local/bin/jx-release-version", returnStdout: true).trim()
-                    echo "Generated Version: ${env.RELEASE_VERSION}"
-                }
-            }
-        }
-
+    stages {å
         stage("Project Building") {
             steps {
                 git branch: 'main', url: 'https://github.com/denmgarcia/genai'
@@ -29,11 +20,9 @@ pipeline {
         
         stage("Docker Building") {
             steps {
-                echo "===Building Docker Image==="
-                echo "Building Docker image with tag: ${env.RELEASE_VERSION}"
-                sh "docker build -t ${DOCKER_IMAGE}:${env.RELEASE_VERSION} ."
-                sh "docker tag ${DOCKER_IMAGE}:${env.RELEASE_VERSION} ${DOCKER_IMAGE}:latest"
-                echo "===Build Complete==="
+                echo "Building Docker image with tag: ${BUILD_TAG}"
+                sh "docker build -t ${DOCKER_IMAGE}:${BUILD_TAG} ."
+                sh "docker tag ${DOCKER_IMAGE}:${BUILD_TAG} ${DOCKER_IMAGE}:latest"
             }
         }
         
@@ -42,7 +31,7 @@ pipeline {
                script {
                    withCredentials([string(credentialsId: 'dockerhub', variable: 'DOCKER_PASS')]) {
                         sh "docker login -u cyborden -p ${DOCKER_PASS}"
-                        sh "docker push ${DOCKER_IMAGE}:${env.RELEASE_VERSION}"
+                        sh "docker push ${DOCKER_IMAGE}:${BUILD_TAG}"
                    }
                }
             }
